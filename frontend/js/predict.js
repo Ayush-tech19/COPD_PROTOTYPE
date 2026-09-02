@@ -5,7 +5,7 @@
 // IMPORTANT: Apna backend URL yahan set karo.
 // Local testing: http://127.0.0.1:8000
 // Deployed: apna server ka URL daal dena.
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://copd-prototype-backend.onrender.com";
 
 const form = document.getElementById("predictForm");
 const submitBtn = document.getElementById("submitBtn");
