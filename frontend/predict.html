@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPD Risk Prediction</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="brand">🫁 COPD Care</a>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="predict.html">Prediction</a>
+    <a href="doctor.html">Find Doctor</a>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="dashboard-header">
+    <h1>COPD Risk Prediction</h1>
+    <p>Neeche diye gaye 13 parameters bharo aur risk score check karo</p>
+  </div>
+
+  <div class="form-card">
+    <form id="predictForm">
+      <div class="form-grid">
+
+        <div class="field">
+          <label for="age">Age (years)</label>
+          <input type="number" id="age" min="1" max="120" required>
+        </div>
+
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="smoking_status">Smoking Status</label>
+          <select id="smoking_status" required>
+            <option value="never">Never smoked</option>
+            <option value="former">Former smoker</option>
+            <option value="current">Current smoker</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="pack_years">Pack-Years</label>
+          <input type="number" id="pack_years" min="0" step="0.1" value="0" required>
+          <small>0 agar kabhi smoke nahi kiya</small>
+        </div>
+
+        <div class="field">
+          <label for="fev1_percent">FEV1 % Predicted</label>
+          <input type="number" id="fev1_percent" min="0" max="150" step="0.1" required>
+          <small>Spirometry report se</small>
+        </div>
+
+        <div class="field">
+          <label for="fev1_fvc_ratio">FEV1/FVC Ratio</label>
+          <input type="number" id="fev1_fvc_ratio" min="0" max="1" step="0.01" placeholder="e.g. 0.65" required>
+        </div>
+
+        <div class="field">
+          <label for="mmrc_dyspnea_scale">mMRC Dyspnea Scale (0-4)</label>
+          <input type="number" id="mmrc_dyspnea_scale" min="0" max="4" required>
+        </div>
+
+        <div class="field">
+          <label for="respiratory_infections_last_year">Chest Infections (last 12 months)</label>
+          <input type="number" id="respiratory_infections_last_year" min="0" value="0" required>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="biomass_fuel_exposure">
+          <label for="biomass_fuel_exposure">Biomass fuel exposure (chulha/wood smoke)</label>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="occupational_dust_exposure">
+          <label for="occupational_dust_exposure">Occupational dust/fumes exposure</label>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="chronic_cough">
+          <label for="chronic_cough">Chronic cough</label>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="sputum_production">
+          <label for="sputum_production">Sputum production</label>
+        </div>
+
+        <div class="field checkbox-field">
+          <input type="checkbox" id="wheezing">
+          <label for="wheezing">Wheezing</label>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Predict Risk</button>
+    </form>
+
+    <div class="error-box" id="errorBox"></div>
+
+    <div class="result-box" id="resultBox">
+      <span class="result-score" id="resultScore"></span>
+      <span class="result-level" id="resultLevel"></span>
+      <ul class="factors-list" id="factorsList"></ul>
+      <p class="disclaimer" id="disclaimerText"></p>
+    </div>
+  </div>
+</main>
+
+<a href="https://wa.me/910000000000?text=Hello%2C%20I%20need%20COPD%20consultation%20help"
+   class="whatsapp-float" target="_blank" rel="noopener" title="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.386.697 4.61 1.902 6.484L4 29l7.72-1.865A11.94 11.94 0 0 0 16.001 27C22.63 27 28 21.627 28 15S22.63 3 16.001 3zm0 21.75c-1.938 0-3.75-.522-5.31-1.432l-.381-.226-4.58 1.107 1.135-4.462-.248-.386A9.71 9.71 0 0 1 5.25 15c0-5.936 4.815-10.75 10.751-10.75S26.75 9.064 26.75 15 21.937 24.75 16.001 24.75zm5.507-8.05c-.302-.15-1.784-.881-2.06-.982-.276-.101-.477-.15-.678.15-.2.301-.778.982-.954 1.183-.176.2-.352.226-.653.075-.302-.151-1.274-.47-2.427-1.499-.897-.8-1.503-1.788-1.679-2.09-.176-.302-.019-.465.132-.615.135-.135.302-.352.452-.528.15-.176.2-.302.301-.503.1-.2.05-.377-.025-.528-.075-.15-.678-1.634-.929-2.238-.245-.588-.494-.508-.678-.517l-.578-.01c-.2 0-.528.075-.804.377-.276.302-1.054 1.03-1.054 2.512s1.079 2.914 1.229 3.115c.151.2 2.124 3.243 5.148 4.548.719.31 1.28.495 1.717.634.721.229 1.377.197 1.896.12.578-.086 1.784-.729 2.036-1.433.251-.704.251-1.307.176-1.433-.075-.125-.276-.2-.578-.35z"/>
+  </svg>
+</a>
+
+<script src="js/predict.js"></script>
+</body>
+</html>
