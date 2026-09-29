@@ -2,6 +2,9 @@
 
 A simple MVP for COPD care with a **FastAPI backend** for risk prediction and a **HTML/CSS/JavaScript frontend** for the dashboard, prediction form, and doctor search.
 
+### Home page link
+viewproject[https://ayush-tech19.github.io/COPD_PROTOTYPE/frontend/index.html]
+
 ## 📁 Folder Structure
 
 ```text
