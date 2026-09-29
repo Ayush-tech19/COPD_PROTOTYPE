@@ -1,71 +1,77 @@
 # COPD Care Platform — Prototype
 
-Simple MVP: FastAPI backend (prediction) + plain HTML/CSS/JS frontend
-(dashboard, prediction form, doctor search on OpenStreetMap).
+A simple MVP for COPD care with a **FastAPI backend** for risk prediction and a **HTML/CSS/JavaScript frontend** for the dashboard, prediction form, and doctor search.
 
-## Folder Structure
-```
+## 📁 Folder Structure
+
+```text
 copd-platform/
 ├── backend/
-│   ├── main.py           # FastAPI app with /predict endpoint
+│   ├── main.py
 │   └── requirements.txt
 └── frontend/
-    ├── index.html         # Dashboard (2 feature cards)
-    ├── predict.html        # 13-parameter COPD prediction form
-    ├── doctor.html          # OSM map + doctor search
+    ├── index.html
+    ├── predict.html
+    ├── doctor.html
     ├── css/style.css
     └── js/
         ├── predict.js
         └── doctor.js
 ```
 
-## 1. Backend chalane ke liye (FastAPI)
+## 🚀 Backend Setup
+
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
-Backend chalu ho jayega: http://127.0.0.1:8000
-API docs (auto-generated): http://127.0.0.1:8000/docs
 
-## 2. Frontend chalane ke liye
-`frontend/` folder ke andar `index.html` ko directly browser me kholo,
-ya VSCode Live Server extension use karo. Koi build step nahi chahiye —
-pure HTML/CSS/JS hai.
+Backend: `http://127.0.0.1:8000`
+API Docs: `http://127.0.0.1:8000/docs`
 
-**Important:** `frontend/js/predict.js` file me `API_BASE_URL` variable
-check kar lena — abhi `http://127.0.0.1:8000` set hai (local backend).
-Jab backend deploy karoge (Render/Railway/VPS), yahan wo URL daal dena.
+## 🌐 Frontend
 
-## 3. WhatsApp Button
-Har page par bottom-right corner me static WhatsApp floating button hai.
-Ye currently `https://wa.me/910000000000?text=...` link use kar raha hai.
+Open `frontend/index.html` directly in a browser or use **VS Code Live Server**.
 
-Apna Twilio WhatsApp number/link daalne ke liye, teeno HTML files
-(`index.html`, `predict.html`, `doctor.html`) me ye line dhundo:
-```html
-<a href="https://wa.me/910000000000?text=..." class="whatsapp-float" ...>
+In `frontend/js/predict.js`, update `API_BASE_URL` when deploying the backend:
+
+```javascript
+const API_BASE_URL = "http://127.0.0.1:8000";
 ```
-Aur apna actual Twilio WhatsApp link/number wahan replace kar dena.
 
-## 4. Doctor Search
-- Map: Leaflet.js + OpenStreetMap tiles (free, no API key)
-- Location search: Nominatim geocoding API (free, no API key)
-- Doctor data: abhi static sample list hai (`frontend/js/doctor.js` me
-  `DOCTORS` array) — baad me isko real backend API/database se connect
-  kar sakte ho jab real doctor data ho.
+## 🩺 Doctor Search
 
-## 5. COPD Prediction Model
-Abhi `backend/main.py` me `calculate_risk()` ek rule-based weighted
-scoring function hai — 13 parameters ko clinically-reasonable weights
-dekar risk score (0-100) aur risk level (Low/Moderate/High) nikalta hai.
+* **Leaflet.js** for maps
+* **OpenStreetMap** for map tiles
+* **Nominatim** for location search
+* Currently uses sample doctor data from `frontend/js/doctor.js`
+* Can later be connected to a real backend/database
 
-Jab tumhare paas trained ML model (sklearn/joblib) ho, sirf
-`calculate_risk()` function ko replace karna hoga — baaki sab same
-rahega (API contract same hi rahega, frontend me koi change nahi
-chahiye hoga).
+## 🤖 COPD Prediction
 
-## Disclaimer
-Ye ek prototype/screening tool hai, medical diagnosis nahi. Real
-deployment se pehle clinically validated model aur proper disclaimers
-add karna zaroori hai.
+The prototype currently uses a **rule-based weighted scoring system** in `backend/main.py`.
+
+It takes **13 parameters** and returns:
+
+* Risk Score: `0–100`
+* Risk Level: `Low / Moderate / High`
+
+A trained **scikit-learn/Joblib model** can later replace `calculate_risk()` without changing the frontend API contract.
+
+## 💬 WhatsApp
+
+Each page includes a floating WhatsApp button. Replace the placeholder link in:
+
+```text
+index.html
+predict.html
+doctor.html
+```
+
+with your actual WhatsApp/Twilio link.
+
+## ⚠️ Disclaimer
+
+This is a **prototype/screening tool, not a medical diagnostic system**. The current risk model is not clinically validated. Real-world deployment requires a clinically validated model, proper medical evaluation, and appropriate disclaimers.
+
